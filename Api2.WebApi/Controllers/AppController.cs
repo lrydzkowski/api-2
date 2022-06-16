@@ -6,7 +6,7 @@ namespace Api2.WebApi.Controllers;
 public class AppController : ControllerBase
 {
     [HttpGet]
-    [Route("app")]
+    [Route("")]
     public IActionResult GetAppInfo()
     {
         return Ok(new { Version = "1.0.0-preview.3", Name = "Api2" });
