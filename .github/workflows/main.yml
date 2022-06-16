@@ -1,4 +1,4 @@
-name: Docker image creation
+name: CI/CD
 
 on:
   push:
@@ -56,7 +56,7 @@ jobs:
           context: .
           file: ./Api2.WebApi/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.APP_IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.APP_IMAGE_NAME }}:${{ github.run_id }}
+          tags: ${{ env.REGISTRY }}/${{ env.APP_IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.APP_IMAGE_NAME }}:${{ github.sha }}
           
   deploy:
     runs-on: ubuntu-latest
@@ -77,4 +77,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: ${{ env.REGISTRY }}/${{ env.APP_IMAGE_NAME }}:latest
+          images: ${{ env.REGISTRY }}/${{ env.APP_IMAGE_NAME }}:${{ github.sha }}
